@@ -10,29 +10,17 @@ struct Sound{
 
 #include "raw.h"
 
-const int SERIAL_OUTPUT_PIN = A4;
-const int SERIAL_INPUT_PIN = A2;
-const int SERIAL_CLOCK_PIN = A5;
-const int OUTPUT_DISABLE_PIN = A3;
 const int SPEAKER_PIN = A1;
 
 void setup(){
-  pinMode(SERIAL_OUTPUT_PIN, OUTPUT);
-  pinMode(SERIAL_INPUT_PIN, INPUT);
-  pinMode(SERIAL_CLOCK_PIN, OUTPUT);
-  pinMode(OUTPUT_DISABLE_PIN, OUTPUT);
   pinMode(SPEAKER_PIN, OUTPUT);
-
-  digitalWrite(OUTPUT_DISABLE_PIN, HIGH);
-  Serial.begin(9600);
 }
-
-const int maxpoly = 1;
+ 
+const int maxpoly = 5;
 unsigned long poly [maxpoly][3];
 int pos = 0;
 int count = 0;
 int start = -1;
-bool states [maxpoly];
 
 void loop(){
   unsigned long t = micros();
@@ -58,12 +46,9 @@ void loop(){
       if (t >= poly[i][2]){
         poly[i][2] += poly[i][0];
         digitalWrite(SPEAKER_PIN, HIGH);
-        delayMicroseconds(100);
-        //delayMicroseconds(poly[i][0] / 200);
+        delayMicroseconds(poly[i][0] / 160);
         digitalWrite(SPEAKER_PIN, LOW);
-        //states[i] = !states[i];
       }
-      digitalWrite(SPEAKER_PIN, states[i]);
       i ++;
     }
   }
