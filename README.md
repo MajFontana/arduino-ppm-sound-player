@@ -1,7 +1,13 @@
-# arduino-ppm-sound-player
-Arduino program that plays sound using pulse position modulation. Python utility to convert midi files included
+# Arduino PWM sound player
+Arduino project that plays music through a single digital pin using pulse width modulation. Includes a Python utility to load music from MIDI files.
 
-To play a midi file of your choice, first set the SOURCE variable in midi_parser.py to the path to your midi file, and run the script. Then compile player.ino and upload the program to your Arduino.
-In player.ino set the appropriate SPEAKER_PIN variable. You can configure the maxpoly variable to limit the amount of notes played at a time.
+<img alt="Hardware setup" src="docs/images/hardware-setup.png" width="500">
 
-Note that at present the program doesn't filter out drum notes, and will treat them like all other notes, thus attempt to play them according to their note numbers.
+*Hardware setup*
+
+## Usage
+
+To play a midi file of your choice, first set the `SOURCE` variable in `midi_parser.py` to the path to your midi file and run the script. Then compile `player.ino` and upload the program to your Arduino.
+In `player.ino` set the appropriate `SPEAKER_PIN` variable. You can configure the `maxpoly` variable to limit the amount of notes played at a time.
+
+Note that the player can only play pulse tones, and does not differentiate between different instruments. You can remove drum tracks by modifying the `REMOVE_CHANNELS` variable in `midi_parser.py`.
